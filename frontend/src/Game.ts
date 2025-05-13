@@ -6,9 +6,10 @@ import { Hub } from './libs/assets/screens/Hub'
 import { HubIcons3 } from './libs/assets/screens/HubIcons3'
 //import {HubRight} from "./assets/screens/elements/HubRight";
 import { BonusWheel } from './libs/assets/bonus/BonusWheel'
-import { EventEmitter } from 'eventemitter3'
+import { EE as EEE } from './utils/eventEmitter.js'
+export { EE } from './utils/eventEmitter.js'
 
-export const EE = new EventEmitter()
+// export const EE = new EventEmitter()
 /**
  * main stage
  */
@@ -38,7 +39,7 @@ export let UPDATE_BIG_BUTTONS: string = 'UPDATE_BIG_BUTTONS'
  */
 export function updateSelectButton(idd: number) {
   SELECTED_PART = idd
-  EE.emit(UPDATE_BIG_BUTTONS)
+  EEE.emit(UPDATE_BIG_BUTTONS)
 }
 
 /**
@@ -59,8 +60,8 @@ export async function setup() {
   //get money and add game
   createHub()
   //TODO: test. If not needed remove it
-  EE.emit('SHOW_REGINFO') //reginfo popup
-  EE.addListener('SHOW_WHEEL', showBonusWheel)
+  EEE.emit('SHOW_REGINFO') //reginfo popup
+  EEE.addListener('SHOW_WHEEL', showBonusWheel)
   //
   let ticker = PIXI.Ticker.shared
   ticker.autoStart = false
