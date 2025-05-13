@@ -8,7 +8,6 @@
         Last Pixi Event: <span>{{ lastPixiEventMessage }}</span>
       </p>
     </header>
-
     <div class="pixi-section">
       <h2>PixiJS Canvas</h2>
       <PixiCanvas
@@ -20,10 +19,16 @@
         :graphics="pixiGraphicsData"
       />
     </div>
+    <UpdatePopupWin
+      v-if="showUpdatePopup"
+      @close="handlePopupClose"
+      @updateClick="handlePopupUpdate"
+    />
 
     <footer class="standard-footer">
       <p>Footer Section</p>
     </footer>
+    <button @click="showUpdatePopup = true">Show Update Popup</button>
   </div>
 </template>
 
@@ -40,6 +45,19 @@ const componentTarget = { id: 'HomeViewComponent' }
 const canvasWidth = ref(800)
 const canvasHeight = ref(600)
 const lastPixiEventMessage = ref('No Pixi events yet.')
+
+const showUpdatePopup = ref(false)
+
+const handlePopupClose = () => {
+  showUpdatePopup.value = false
+  console.log('UpdatePopup was closed')
+}
+
+const handlePopupUpdate = () => {
+  console.log('UpdatePopup update button was clicked')
+  // Potentially close the popup or do other actions
+  showUpdatePopup.value = false
+}
 
 const pixiSprites = reactive([
   { name: 'movingBunny', imageUrl: '/images/common/close.png', x: 150, y: 150, scale: 1.2 },
